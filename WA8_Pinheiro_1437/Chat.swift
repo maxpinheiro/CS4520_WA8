@@ -8,6 +8,8 @@
 import Foundation
 import FirebaseFirestoreSwift
 
+// lucy git test !! :)
+
 struct Chat: Codable {
     @DocumentID var id: String?
     var source_user_id: String?;
