@@ -10,10 +10,12 @@ import FirebaseFirestoreSwift
 
 struct Chat: Codable {
     @DocumentID var id: String?
-    var user_ids: [String]
+    var source_user_id: String?;
+    var target_user_id: String?;
     
-    init(user_ids: [String]) {
-        self.user_ids = user_ids
+    init(source_user_id: String?, target_user_id: String?) {
+        self.source_user_id = source_user_id
+        self.target_user_id = target_user_id
     }
     
 }
