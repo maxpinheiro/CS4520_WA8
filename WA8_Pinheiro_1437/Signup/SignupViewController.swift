@@ -39,7 +39,7 @@ class SignupViewController: UIViewController {
     }
     
     // creates a user object from inputs, displaying an error if any fields are invalid
-    func validUserInputs() -> User? {
+    func validUserInputs() -> CreateUserDTO? {
         var name: String?
         if let nameText = signupView.nameInput.text {
             if nameText.isEmpty {
@@ -78,7 +78,7 @@ class SignupViewController: UIViewController {
             showErrorAlert("Passwords must match.", controller: self)
             return nil
         }
-        return User(name: name!, email: email!, password: password!)
+        return CreateUserDTO(name: name!, email: email!, password: password!)
     }
     
     func attemptSignup(_ name: String, _ email: String, _ password: String) {

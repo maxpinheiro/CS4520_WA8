@@ -7,6 +7,8 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct AuthenticationResponse: Codable {
     let auth: Bool
@@ -52,7 +54,19 @@ class AuthenticationAPIService {
                 changeRequest?.displayName = name
                 changeRequest?.commitChanges(completion: {(error) in
                     if error == nil {
-                        completion(.success(true))
+                        // create user in firestore
+                        let newUser = User(name: name, email: email)
+                        let db = Firestore.firestore()
+                        let userCollection = db.collection("users")
+                        do {
+                            try userCollection.addDocument(from: newUser, completion: {(error) in
+                                if error == nil {
+                                    completion(.success(true))
+                                }
+                            })
+                        } catch {
+                            completion(.failure(.unknownError))
+                        }
                     } else {
                         print("Error occured: \(String(describing: error))")
                         completion(.failure(.unknownError))
@@ -75,6 +89,27 @@ class AuthenticationAPIService {
                 completion(.failure(.invalidLogin))
             }
         })
+    }
+    
+    static func getUserByEmail(_ email: String, _ completion: @escaping (Result<User, AuthenticationAPIError>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("users").whereField("email", isEqualTo: email)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print(err)
+                    completion(.failure(.unknownError))
+                } else {
+                    do {
+                        let documents = querySnapshot!.documents
+                        let document = documents.first!
+                        print(document)
+                        let user  = try document.data(as: User.self)
+                        completion(.success(user))
+                    } catch {
+                        completion(.failure(.unknownError))
+                    }
+                }
+            }
     }
     
 }

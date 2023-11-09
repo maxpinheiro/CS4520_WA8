@@ -12,8 +12,7 @@ struct UserList: Codable {
     var users: [User]
 }
 
-struct User: Codable {
-    @DocumentID var id: String?
+struct CreateUserDTO {
     var name: String
     var email: String
     var password: String
@@ -22,6 +21,17 @@ struct User: Codable {
         self.name = name
         self.email = email
         self.password = password
+    }
+}
+
+struct User: Codable {
+    @DocumentID var id: String?
+    var name: String
+    var email: String
+    
+    init(name: String, email: String) {
+        self.name = name
+        self.email = email
     }
     
     static func isValidEmail(_ email: String) -> Bool {
