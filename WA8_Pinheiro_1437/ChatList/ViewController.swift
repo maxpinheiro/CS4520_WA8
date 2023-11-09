@@ -13,8 +13,8 @@ class ViewController: UIViewController {
     let notificationCenter = NotificationCenter.default
     
     var handleAuth: AuthStateDidChangeListenerHandle?
-    var currentUser: FirebaseAuth.User?
-    var savedUserEmail: String?
+    var currentAuthUser: FirebaseAuth.User?
+    var currentUserID: String?
 
     var chats = [Chat]()
     var accessToken: String?
@@ -30,16 +30,15 @@ class ViewController: UIViewController {
         // handles whenever the authentication state is changed (sign in, sign out, register)
         handleAuth = Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
-                self.currentUser = nil
-                self.defaults.set(nil, forKey: "userEmail")
+                self.currentAuthUser = nil
+                self.defaults.set(nil, forKey: "currentUserID")
                 self.setupLeftBarButton(isLoggedin: false)
             } else {
-                self.currentUser = user
+                self.currentAuthUser = user
                 guard let userEmail = user!.email else {
                     return showErrorAlert("Could not obtain email from user", controller: self)
                 }
-                self.defaults.set(userEmail, forKey: "userEmail")
-                self.fetchChats(userEmail)
+                self.fetchCurrentUser(userEmail)
                 self.setupLeftBarButton(isLoggedin: true)
                 self.setupRightBarButton()
             }
@@ -60,10 +59,11 @@ class ViewController: UIViewController {
     }
     
     func checkSavedUser() {
-        let savedUserEmail = defaults.object(forKey: "userEmail") as! String?
+        let savedUserID = defaults.object(forKey: "currentUser") as! String?
         // fetch chats if logged in, otherwise redirect to login
-        if let userEmail = savedUserEmail {
-            return fetchChats(userEmail)
+        if let userID = savedUserID {
+            self.currentUserID = userID
+            return fetchChatsForUser(userID: userID)
         }
         return openLoginPage()
     }
@@ -78,8 +78,24 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(loginController, animated: true)
     }
     
-    func fetchChats(_ userEmail: String) {
-        print("fetching chats for email \(userEmail)")
+    func fetchChatsForUser(userID: String) {
+        
+    }
+    
+    // given a user's email (firebase auth), get the corresponding
+    // user in the firstore and save the user_id to cookies
+    func fetchCurrentUser(_ userEmail: String) {
+        AuthenticationAPIService.getUserByEmail(userEmail) { result in
+            switch result {
+            case .success(let user):
+                self.defaults.set(user.id!, forKey: "currentUserID")
+                self.fetchChatsForUser(userID: user.id!)
+                break
+            case .failure(let error):
+                showErrorAlert(error.localizedDescription, controller: self)
+                break
+            }
+        }
     }
     
     func addObservers() {
