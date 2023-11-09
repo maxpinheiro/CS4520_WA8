@@ -28,34 +28,33 @@ enum APIError: LocalizedError {
 }
 
 class ChatAPIService {
+    // listens to a document for changes and invokes the callback each time the data changes
     static func addChatListener(userEmail: String, _ onChange: @escaping (Result<[Chat], APIError>) -> Void) {
-        let database = Firestore.firestore()
-        database
-            .collection("users")
-            .document(userEmail)
-            .collection("chat")
-            .addSnapshotListener(includeMetadataChanges: false, listener: {querySnapshot, error in
-                if let documents = querySnapshot?.documents {
-                    var chatList = [Chat]()
-                    for document in documents {
-                        do {
-                            let chat  = try document.data(as: Chat.self)
-                            chatList.append(chat)
-                        } catch {
-                            onChange(.failure(.unknownError))
-                        }
+        let db = Firestore.firestore()
+        let chatCollection = db.collection("users")
+                                .document(userEmail)
+                                .collection("chats")
+        chatCollection.addSnapshotListener(includeMetadataChanges: false, listener: { querySnapshot, error in
+            if let documents = querySnapshot?.documents {
+                var chatList = [Chat]()
+                for document in documents {
+                    do {
+                        let chat  = try document.data(as: Chat.self)
+                        chatList.append(chat)
+                    } catch {
+                        onChange(.failure(.unknownError))
                     }
-                    onChange(.success(chatList))
                 }
-            })
+                onChange(.success(chatList))
+            }
+        })
     }
     
     static func createChatForUser(userEmail: String, chat: Chat, _ completion: @escaping (Result<Bool, APIError>) -> Void) {
-        let database = Firestore.firestore()
-        let chatCollection = database
-            .collection("users")
-            .document(userEmail)
-            .collection("chats")
+        let db = Firestore.firestore()
+        let chatCollection = db.collection("users")
+                                .document(userEmail)
+                                .collection("chats")
         do {
             try chatCollection.addDocument(from: chat, completion: {(error) in
                 if error == nil {

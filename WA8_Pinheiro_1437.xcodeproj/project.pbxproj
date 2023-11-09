@@ -21,6 +21,19 @@
 		BE900C472AF94DCE00CCDEE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C462AF94DCE00CCDEE0 /* User.swift */; };
 		BE900C492AF94DFF00CCDEE0 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C482AF94DFF00CCDEE0 /* Chat.swift */; };
 		BE900C4B2AF9530000CCDEE0 /* ChatAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */; };
+		BE900C502AF9686F00CCDEE0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C4F2AF9686F00CCDEE0 /* LoginView.swift */; };
+		BE900C522AF9688600CCDEE0 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C512AF9688600CCDEE0 /* SignupView.swift */; };
+		BE900C542AF9695D00CCDEE0 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */; };
+		BE900C562AF969F800CCDEE0 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C552AF969F800CCDEE0 /* SignupViewController.swift */; };
+		BE900C582AF96A2100CCDEE0 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C572AF96A2100CCDEE0 /* Utils.swift */; };
+		BE900C5A2AF96B6000CCDEE0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C592AF96B6000CCDEE0 /* LoginViewController.swift */; };
+		BE900C5C2AF96C1300CCDEE0 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C5B2AF96C1300CCDEE0 /* ChatListView.swift */; };
+		BE900C5E2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */; };
+		BE900C612AF975B600CCDEE0 /* ProgressSpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C602AF975B500CCDEE0 /* ProgressSpinnerViewController.swift */; };
+		BE900C642AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C632AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift */; };
+		BE900C662AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C652AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift */; };
+		BE900C6A2AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C692AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift */; };
+		BE900C6C2AF980C300CCDEE0 /* NavbarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +49,19 @@
 		BE900C462AF94DCE00CCDEE0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BE900C482AF94DFF00CCDEE0 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAPIService.swift; sourceTree = "<group>"; };
+		BE900C4F2AF9686F00CCDEE0 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		BE900C512AF9688600CCDEE0 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		BE900C552AF969F800CCDEE0 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		BE900C572AF96A2100CCDEE0 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		BE900C592AF96B6000CCDEE0 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BE900C5B2AF96C1300CCDEE0 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
+		BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAPIService.swift; sourceTree = "<group>"; };
+		BE900C602AF975B500CCDEE0 /* ProgressSpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerViewController.swift; sourceTree = "<group>"; };
+		BE900C632AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSpinnerDelegate.swift; sourceTree = "<group>"; };
+		BE900C652AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupProgressIndicatorManager.swift; sourceTree = "<group>"; };
+		BE900C692AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProgressIndicatorManager.swift; sourceTree = "<group>"; };
+		BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavbarButtonManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,9 +98,12 @@
 		BE900C262AF9450A00CCDEE0 /* WA8_Pinheiro_1437 */ = {
 			isa = PBXGroup;
 			children = (
+				BE900C5F2AF9754100CCDEE0 /* ProgressIndicator */,
+				BE900C4E2AF967A900CCDEE0 /* Signup */,
+				BE900C4D2AF967A400CCDEE0 /* Login */,
+				BE900C4C2AF9679B00CCDEE0 /* ChatList */,
 				BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */,
 				BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */,
-				BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */,
 				BE900C2D2AF9450A00CCDEE0 /* Main.storyboard */,
 				BE900C302AF9450C00CCDEE0 /* Assets.xcassets */,
 				BE900C322AF9450C00CCDEE0 /* LaunchScreen.storyboard */,
@@ -83,8 +112,50 @@
 				BE900C462AF94DCE00CCDEE0 /* User.swift */,
 				BE900C482AF94DFF00CCDEE0 /* Chat.swift */,
 				BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */,
+				BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */,
+				BE900C572AF96A2100CCDEE0 /* Utils.swift */,
+				BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */,
 			);
 			path = WA8_Pinheiro_1437;
+			sourceTree = "<group>";
+		};
+		BE900C4C2AF9679B00CCDEE0 /* ChatList */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */,
+				BE900C5B2AF96C1300CCDEE0 /* ChatListView.swift */,
+				BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */,
+			);
+			path = ChatList;
+			sourceTree = "<group>";
+		};
+		BE900C4D2AF967A400CCDEE0 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C4F2AF9686F00CCDEE0 /* LoginView.swift */,
+				BE900C592AF96B6000CCDEE0 /* LoginViewController.swift */,
+				BE900C692AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		BE900C4E2AF967A900CCDEE0 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C512AF9688600CCDEE0 /* SignupView.swift */,
+				BE900C552AF969F800CCDEE0 /* SignupViewController.swift */,
+				BE900C652AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		BE900C5F2AF9754100CCDEE0 /* ProgressIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C602AF975B500CCDEE0 /* ProgressSpinnerViewController.swift */,
+				BE900C632AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift */,
+			);
+			path = ProgressIndicator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,12 +239,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE900C5A2AF96B6000CCDEE0 /* LoginViewController.swift in Sources */,
 				BE900C4B2AF9530000CCDEE0 /* ChatAPIService.swift in Sources */,
+				BE900C502AF9686F00CCDEE0 /* LoginView.swift in Sources */,
+				BE900C562AF969F800CCDEE0 /* SignupViewController.swift in Sources */,
+				BE900C6C2AF980C300CCDEE0 /* NavbarButtonManager.swift in Sources */,
 				BE900C472AF94DCE00CCDEE0 /* User.swift in Sources */,
 				BE900C2C2AF9450A00CCDEE0 /* ViewController.swift in Sources */,
+				BE900C5E2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift in Sources */,
+				BE900C642AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift in Sources */,
+				BE900C542AF9695D00CCDEE0 /* NotificationNames.swift in Sources */,
+				BE900C612AF975B600CCDEE0 /* ProgressSpinnerViewController.swift in Sources */,
+				BE900C662AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift in Sources */,
+				BE900C522AF9688600CCDEE0 /* SignupView.swift in Sources */,
+				BE900C6A2AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift in Sources */,
+				BE900C582AF96A2100CCDEE0 /* Utils.swift in Sources */,
 				BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */,
 				BE900C492AF94DFF00CCDEE0 /* Chat.swift in Sources */,
 				BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */,
+				BE900C5C2AF96C1300CCDEE0 /* ChatListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
