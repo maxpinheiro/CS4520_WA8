@@ -41,6 +41,7 @@ class ViewController: UIViewController {
                 self.defaults.set(userEmail, forKey: "userEmail")
                 self.fetchChats(userEmail)
                 self.setupLeftBarButton(isLoggedin: true)
+                self.setupRightBarButton()
             }
         }
     }

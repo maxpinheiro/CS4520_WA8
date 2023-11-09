@@ -31,3 +31,4 @@ struct User: Codable {
         return emailPred.evaluate(with: email)
     }
 }
+

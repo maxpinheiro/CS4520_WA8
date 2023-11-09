@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E3C88972AFD4B5400CE8EE7 /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C88962AFD4B5400CE8EE7 /* NewChatViewController.swift */; };
+		0E3C88992AFD4B6100CE8EE7 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C88982AFD4B6100CE8EE7 /* NewChatView.swift */; };
+		0E3C889B2AFD4C3500CE8EE7 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C889A2AFD4C3500CE8EE7 /* SearchTableViewCell.swift */; };
 		BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */; };
 		BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */; };
 		BE900C2C2AF9450A00CCDEE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E3C88962AFD4B5400CE8EE7 /* NewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewController.swift; sourceTree = "<group>"; };
+		0E3C88982AFD4B6100CE8EE7 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
+		0E3C889A2AFD4C3500CE8EE7 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		BE900C242AF9450A00CCDEE0 /* WA8_Pinheiro_1437.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8_Pinheiro_1437.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +85,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E3C88952AFD4B3500CE8EE7 /* NewChat */ = {
+			isa = PBXGroup;
+			children = (
+				0E3C88962AFD4B5400CE8EE7 /* NewChatViewController.swift */,
+				0E3C88982AFD4B6100CE8EE7 /* NewChatView.swift */,
+				0E3C889A2AFD4C3500CE8EE7 /* SearchTableViewCell.swift */,
+			);
+			path = NewChat;
+			sourceTree = "<group>";
+		};
 		BE900C1B2AF9450A00CCDEE0 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +114,7 @@
 		BE900C262AF9450A00CCDEE0 /* WA8_Pinheiro_1437 */ = {
 			isa = PBXGroup;
 			children = (
+				0E3C88952AFD4B3500CE8EE7 /* NewChat */,
 				BE900C5F2AF9754100CCDEE0 /* ProgressIndicator */,
 				BE900C4E2AF967A900CCDEE0 /* Signup */,
 				BE900C4D2AF967A400CCDEE0 /* Login */,
@@ -254,10 +271,13 @@
 				BE900C522AF9688600CCDEE0 /* SignupView.swift in Sources */,
 				BE900C6A2AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift in Sources */,
 				BE900C582AF96A2100CCDEE0 /* Utils.swift in Sources */,
+				0E3C889B2AFD4C3500CE8EE7 /* SearchTableViewCell.swift in Sources */,
 				BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */,
+				0E3C88992AFD4B6100CE8EE7 /* NewChatView.swift in Sources */,
 				BE900C492AF94DFF00CCDEE0 /* Chat.swift in Sources */,
 				BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */,
 				BE900C5C2AF96C1300CCDEE0 /* ChatListView.swift in Sources */,
+				0E3C88972AFD4B5400CE8EE7 /* NewChatViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
