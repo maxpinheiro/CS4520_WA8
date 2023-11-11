@@ -24,5 +24,4 @@ class ChatViewController: UIViewController {
         title = receivedPackage.name
     }
     
-    
 }

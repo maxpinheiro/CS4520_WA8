@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         title = "Login"
         
         if (defaults.getKey(keyName: "currentUserID") != nil) {
-            self.navigationController?.pushViewController(ViewController(), animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
 
         loginView.loginButton.addTarget(self, action: #selector(onLoginButtonTapped), for: .touchUpInside)

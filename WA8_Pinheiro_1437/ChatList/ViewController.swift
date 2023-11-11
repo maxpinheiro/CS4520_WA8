@@ -108,6 +108,7 @@ class ViewController: UIViewController {
     }
     
     @objc func onLogoutSuccessful(notification: Notification) {
+        defaults.deleteKey(keyName: "currentUserID")
         openLoginPage()
     }
 
