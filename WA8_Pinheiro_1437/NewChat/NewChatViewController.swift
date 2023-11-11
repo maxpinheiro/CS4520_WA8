@@ -11,11 +11,13 @@ import FirebaseFirestore
 
 class NewChatViewController: UIViewController {
 
+    let defaults = Defaults()
+    
     let newChatScreen = NewChatView()
     
-    var users = [String]()
+    var userNames = [String]()
     
-    var usersTest = UserList(users: [])
+    var users = UserList(users: [])
     
     var namesForTableView = [String]()
     
@@ -47,20 +49,19 @@ class NewChatViewController: UIViewController {
               print("Error getting documents: \(err)")
             } else {
               for document in querySnapshot!.documents {
-                  let decoder = JSONDecoder()
-                  let userData = document.data()
-                  if let data = try? JSONSerialization.data(withJSONObject: userData, options: []) {
-                      do {
-                          let user = try decoder.decode(User.self, from: data)
-                          // this works:
-                          // let user = try decoder.decode(UserTest.self, from: data)
-                          self.users.append(user.name)
-                      } catch {
-                          print(error)
+                  do {
+                      let user = try document.data(as: User.self)
+                      
+                      // users cannot chat with their account
+                      if user.id != self.defaults.getKey(keyName: "currentUserID") {
+                          self.userNames.append(user.name)
+                          self.users.users.append(user)
                       }
-                 }
+                  } catch {
+                      print(error)
+                  }
               }
-              self.namesForTableView = self.users
+              self.namesForTableView = self.userNames
               self.newChatScreen.tableViewSearchResults.reloadData()
             }
         }
@@ -82,10 +83,10 @@ extension NewChatViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let package = self.notes[indexPath.row]
-//        let detailsController = NoteDetailsViewController()
-//        detailsController.receivedPackage = package
-//        self.navigationController?.pushViewController(detailsController, animated: true)
+        let package = self.users.users[indexPath.row]
+        let chatController = ChatViewController()
+        chatController.receivedPackage = package
+        self.navigationController?.pushViewController(chatController, animated: true)
     }
 }
 
@@ -93,11 +94,11 @@ extension NewChatViewController: UITableViewDelegate, UITableViewDataSource{
 extension NewChatViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            self.namesForTableView = self.users
+            self.namesForTableView = self.userNames
         }else{
             self.namesForTableView.removeAll()
 
-            for name in self.users {
+            for name in self.userNames {
                 if name.contains(searchText){
                     self.namesForTableView.append(name)
                 }

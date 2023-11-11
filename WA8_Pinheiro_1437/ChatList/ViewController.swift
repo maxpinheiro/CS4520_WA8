@@ -65,7 +65,6 @@ class ViewController: UIViewController {
             self.currentUserID = userID
             return fetchChatsForUser(userID: userID)
         }
-        // this wasn't working :(
         return openLoginPage()
     }
     

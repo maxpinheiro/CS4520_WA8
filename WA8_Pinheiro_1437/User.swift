@@ -24,15 +24,14 @@ struct CreateUserDTO {
     }
 }
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     @DocumentID var id: String?
     var name: String
     var email: String
     
-    init(name: String, email: String, id: String? = nil) {
+    init(name: String, email: String) {
         self.name = name
         self.email = email
-        self.id = id
     }
     
     static func isValidEmail(_ email: String) -> Bool {
