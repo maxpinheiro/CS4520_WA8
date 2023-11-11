@@ -29,9 +29,10 @@ struct User: Codable {
     var name: String
     var email: String
     
-    init(name: String, email: String) {
+    init(name: String, email: String, id: String? = nil) {
         self.name = name
         self.email = email
+        self.id = id
     }
     
     static func isValidEmail(_ email: String) -> Bool {
@@ -42,3 +43,21 @@ struct User: Codable {
     }
 }
 
+struct UserTest: Codable {
+    var name: String
+    var email: String
+    var id: String?
+
+    init(name: String, email: String, id: String? = nil) {
+        self.name = name
+        self.email = email
+        self.id = id
+    }
+    
+    static func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailPred.evaluate(with: email)
+    }
+}

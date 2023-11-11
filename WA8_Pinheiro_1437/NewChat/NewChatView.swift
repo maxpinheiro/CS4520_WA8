@@ -21,6 +21,7 @@ class NewChatView: UIView {
         searchBar = UISearchBar()
         searchBar.placeholder = "Search for user.."
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.autocapitalizationType = .none
         self.addSubview(searchBar)
         
         //MARK: Table view...

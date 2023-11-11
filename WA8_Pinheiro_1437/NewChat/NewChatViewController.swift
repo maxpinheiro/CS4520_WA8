@@ -13,16 +13,10 @@ class NewChatViewController: UIViewController {
 
     let newChatScreen = NewChatView()
     
-    //MARK: CHANGE THIS! just for testing :)
-    var namesDatabase = [
-        "Marvin Cook","Samira Jimenez","Coral Hancock","Xander Wade","Terence Mcneil",
-        "Dewey Buckley","Ophelia Higgins","Asiya Anthony","Francesco Knight",
-        "Claude Gonzalez","Demi Decker","Casey Park","Jon Hendrix","Hope Harvey",
-        "Richie Alexander","Carmen Proctor","Mercedes Callahan","Yahya Gibbs",
-        "Julian Pittman","Shauna Ray"
-    ]
+    var users = [String]()
     
-    //MARK: the array to display the table view...
+    var usersTest = UserList(users: [])
+    
     var namesForTableView = [String]()
     
     override func loadView() {
@@ -43,27 +37,34 @@ class NewChatViewController: UIViewController {
         
         //MARK: setting up Search Bar delegate...
         newChatScreen.searchBar.delegate = self
-        
-        //MARK: initializing the array for the table view with all the names...
-        namesForTableView = namesDatabase
     }
     
     func fetchUsers() {
         let db = Firestore.firestore()
         
-        let users = db.collection("users")
-
-        users.getDocuments { (documents, error) in
-          if let documents = documents {
-              //let data = documents.map(doc => doc.data());
-
-              //print("Data: \(data)")
-          } else {
-              print("Collection does not exist")
-          }
+        db.collection("users").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+              print("Error getting documents: \(err)")
+            } else {
+              for document in querySnapshot!.documents {
+                  let decoder = JSONDecoder()
+                  let userData = document.data()
+                  if let data = try? JSONSerialization.data(withJSONObject: userData, options: []) {
+                      do {
+                          let user = try decoder.decode(User.self, from: data)
+                          // this works:
+                          // let user = try decoder.decode(UserTest.self, from: data)
+                          self.users.append(user.name)
+                      } catch {
+                          print(error)
+                      }
+                 }
+              }
+              self.namesForTableView = self.users
+              self.newChatScreen.tableViewSearchResults.reloadData()
+            }
         }
     }
-
 }
 
 //MARK: adopting Table View protocols...
@@ -80,17 +81,23 @@ extension NewChatViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let package = self.notes[indexPath.row]
+//        let detailsController = NoteDetailsViewController()
+//        detailsController.receivedPackage = package
+//        self.navigationController?.pushViewController(detailsController, animated: true)
+    }
 }
 
 //MARK: adopting the search bar protocol...
 extension NewChatViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == ""{
-            namesForTableView = namesDatabase
+        if searchText == "" {
+            self.namesForTableView = self.users
         }else{
             self.namesForTableView.removeAll()
 
-            for name in namesDatabase{
+            for name in self.users {
                 if name.contains(searchText){
                     self.namesForTableView.append(name)
                 }

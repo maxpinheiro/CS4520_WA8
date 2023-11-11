@@ -101,10 +101,14 @@ class AuthenticationAPIService {
                 } else {
                     do {
                         let documents = querySnapshot!.documents
-                        let document = documents.first!
-                        print(document)
-                        let user  = try document.data(as: User.self)
-                        completion(.success(user))
+                        if let document = documents.first {
+                            print(document)
+                            let user  = try document.data(as: User.self)
+                            completion(.success(user))
+                        } else {
+                            completion(.failure(.unknownError))
+                        }
+
                     } catch {
                         completion(.failure(.unknownError))
                     }

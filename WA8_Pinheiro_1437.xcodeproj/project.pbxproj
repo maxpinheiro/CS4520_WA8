@@ -10,6 +10,7 @@
 		0E3C88972AFD4B5400CE8EE7 /* NewChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C88962AFD4B5400CE8EE7 /* NewChatViewController.swift */; };
 		0E3C88992AFD4B6100CE8EE7 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C88982AFD4B6100CE8EE7 /* NewChatView.swift */; };
 		0E3C889B2AFD4C3500CE8EE7 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C889A2AFD4C3500CE8EE7 /* SearchTableViewCell.swift */; };
+		0EA0A6C62B0008F6000393BA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA0A6C52B0008F6000393BA /* Defaults.swift */; };
 		BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */; };
 		BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */; };
 		BE900C2C2AF9450A00CCDEE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		0E3C88962AFD4B5400CE8EE7 /* NewChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatViewController.swift; sourceTree = "<group>"; };
 		0E3C88982AFD4B6100CE8EE7 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
 		0E3C889A2AFD4C3500CE8EE7 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		0EA0A6C52B0008F6000393BA /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		BE900C242AF9450A00CCDEE0 /* WA8_Pinheiro_1437.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8_Pinheiro_1437.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,15 @@
 			path = NewChat;
 			sourceTree = "<group>";
 		};
+		0EA0A6C42B0008EB000393BA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C572AF96A2100CCDEE0 /* Utils.swift */,
+				0EA0A6C52B0008F6000393BA /* Defaults.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		BE900C1B2AF9450A00CCDEE0 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +125,7 @@
 		BE900C262AF9450A00CCDEE0 /* WA8_Pinheiro_1437 */ = {
 			isa = PBXGroup;
 			children = (
+				0EA0A6C42B0008EB000393BA /* Utils */,
 				0E3C88952AFD4B3500CE8EE7 /* NewChat */,
 				BE900C5F2AF9754100CCDEE0 /* ProgressIndicator */,
 				BE900C4E2AF967A900CCDEE0 /* Signup */,
@@ -130,7 +142,6 @@
 				BE900C482AF94DFF00CCDEE0 /* Chat.swift */,
 				BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */,
 				BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */,
-				BE900C572AF96A2100CCDEE0 /* Utils.swift */,
 				BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */,
 			);
 			path = WA8_Pinheiro_1437;
@@ -274,6 +285,7 @@
 				0E3C889B2AFD4C3500CE8EE7 /* SearchTableViewCell.swift in Sources */,
 				BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */,
 				0E3C88992AFD4B6100CE8EE7 /* NewChatView.swift in Sources */,
+				0EA0A6C62B0008F6000393BA /* Defaults.swift in Sources */,
 				BE900C492AF94DFF00CCDEE0 /* Chat.swift in Sources */,
 				BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */,
 				BE900C5C2AF96C1300CCDEE0 /* ChatListView.swift in Sources */,
