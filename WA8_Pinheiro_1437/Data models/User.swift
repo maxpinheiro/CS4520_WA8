@@ -24,7 +24,7 @@ struct CreateUserDTO {
     }
 }
 
-struct User: Codable {
+struct User: Codable, Identifiable {
     @DocumentID var id: String?
     var name: String
     var email: String

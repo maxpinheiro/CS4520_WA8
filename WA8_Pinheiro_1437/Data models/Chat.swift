@@ -8,8 +8,6 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-// lucy git test !! :)
-
 struct Message: Codable {
     @DocumentID var id: String?
     var user_id: String
@@ -26,12 +24,12 @@ struct Message: Codable {
 
 struct Chat: Codable {
     @DocumentID var id: String?
-    var source_user_id: String?
-    var target_user_id: String?
+    var source_user_name: String?
+    var target_user_name: String?
     
-    init(source_user_id: String?, target_user_id: String?) {
-        self.source_user_id = source_user_id
-        self.target_user_id = target_user_id
+    init(source_user_name: String?, target_user_name: String?) {
+        self.source_user_name = source_user_name
+        self.target_user_name = target_user_name
     }
     
 }

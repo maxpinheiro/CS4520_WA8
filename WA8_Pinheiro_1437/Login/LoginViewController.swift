@@ -8,6 +8,8 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    var defaults = Defaults()
 
     let notificationCenter = NotificationCenter.default
     
@@ -21,6 +23,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Login"
+        
+        if (defaults.getKey(keyName: "currentUserID") != nil) {
+            self.navigationController?.popViewController(animated: true)
+        }
 
         loginView.loginButton.addTarget(self, action: #selector(onLoginButtonTapped), for: .touchUpInside)
         loginView.signupButton.addTarget(self, action: #selector(onSignupButtonTapped), for: .touchUpInside)

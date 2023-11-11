@@ -30,6 +30,21 @@ extension ViewController {
         }
     }
     
+    func setupRightBarButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain,
+            target: self,
+            action: #selector(onNewChatButtonTapped)
+        )
+    }
+    
+    @objc func onNewChatButtonTapped() {
+        let newChatController = NewChatViewController()
+        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.pushViewController(newChatController, animated: true)
+    }
+    
     @objc func onLoginButtonTapped() {
         let loginController = LoginViewController()
         self.navigationController?.popViewController(animated: true)
