@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var currentUserID: String?
 
     var chats = [Chat]()
-    var accessToken: String?
     
     var chatListView = ChatListView()
         
@@ -54,6 +53,10 @@ class ViewController: UIViewController {
         tapRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapRecognizer)
         
+        chatListView.chatTableView.delegate = self
+        chatListView.chatTableView.dataSource = self
+        chatListView.chatTableView.separatorStyle = .none
+        
         addObservers()
         checkSavedUser()
     }
@@ -79,7 +82,19 @@ class ViewController: UIViewController {
     }
     
     func fetchChatsForUser(userID: String) {
-        
+        print("fetching chats for user \(userID)")
+        ChatAPIService.getChatsForUser(userID: userID, onChange: { result in
+            switch result {
+            case .success(let chats):
+                print(chats)
+                self.chats = chats
+                self.chatListView.chatTableView.reloadData()
+                break
+            case .failure(let error):
+                showErrorAlert(error.localizedDescription, controller: self)
+                break
+            }
+        })
     }
     
     // given a user's email (firebase auth), get the corresponding
@@ -107,6 +122,10 @@ class ViewController: UIViewController {
         )
     }
     
+    func openChatDetailsPage(_ chat: Chat) {
+        
+    }
+    
     @objc func onLogoutSuccessful(notification: Notification) {
         defaults.deleteKey(keyName: "currentUserID")
         openLoginPage()
@@ -117,3 +136,24 @@ class ViewController: UIViewController {
     }
 
 }
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chats.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chats", for: indexPath) as! ChatTableViewCell
+        let chat = chats[indexPath.row]
+        cell.label.text = chat.source_user_name
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let chat = chats[indexPath.row]
+        openChatDetailsPage(chat)
+    }
+    
+}
+

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Message: Codable {
@@ -20,6 +21,19 @@ struct Message: Codable {
         self.text = text
         self.timestamp = timestamp
     }
+}
+
+struct ChatDisplay {
+    var otherUsername: String
+    
+    init(otherUsername: String) {
+        self.otherUsername = otherUsername
+    }
+}
+
+// the 'chat' document stored in each user's chats colection
+struct ChatReference: Codable {
+    var chat_id: DocumentReference
 }
 
 struct Chat: Codable {
