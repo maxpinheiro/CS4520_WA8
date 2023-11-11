@@ -106,6 +106,7 @@
 			children = (
 				BE900C572AF96A2100CCDEE0 /* Utils.swift */,
 				0EA0A6C52B0008F6000393BA /* Defaults.swift */,
+				BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -117,6 +118,24 @@
 				0EA0A6CA2B003EA3000393BA /* ChatView.swift */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		0EA0A6CC2B0040FF000393BA /* Data models */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C462AF94DCE00CCDEE0 /* User.swift */,
+				BE900C482AF94DFF00CCDEE0 /* Chat.swift */,
+			);
+			path = "Data models";
+			sourceTree = "<group>";
+		};
+		0EA0A6CD2B004117000393BA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */,
+				BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		BE900C1B2AF9450A00CCDEE0 = {
@@ -138,6 +157,8 @@
 		BE900C262AF9450A00CCDEE0 /* WA8_Pinheiro_1437 */ = {
 			isa = PBXGroup;
 			children = (
+				0EA0A6CD2B004117000393BA /* API */,
+				0EA0A6CC2B0040FF000393BA /* Data models */,
 				0EA0A6C42B0008EB000393BA /* Utils */,
 				0EA0A6C72B003E75000393BA /* Chat */,
 				0E3C88952AFD4B3500CE8EE7 /* NewChat */,
@@ -152,11 +173,6 @@
 				BE900C322AF9450C00CCDEE0 /* LaunchScreen.storyboard */,
 				BE900C352AF9450C00CCDEE0 /* Info.plist */,
 				BE900C3B2AF94B7B00CCDEE0 /* GoogleService-Info.plist */,
-				BE900C462AF94DCE00CCDEE0 /* User.swift */,
-				BE900C482AF94DFF00CCDEE0 /* Chat.swift */,
-				BE900C4A2AF9530000CCDEE0 /* ChatAPIService.swift */,
-				BE900C532AF9695D00CCDEE0 /* NotificationNames.swift */,
-				BE900C5D2AF96E7D00CCDEE0 /* AuthenticationAPIService.swift */,
 			);
 			path = WA8_Pinheiro_1437;
 			sourceTree = "<group>";
