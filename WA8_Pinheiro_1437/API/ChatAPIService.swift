@@ -53,41 +53,24 @@ class ChatAPIService {
         })
     }
     
-    static func getChatsForUser(userID: String, onChange: @escaping (Result<[Chat], APIError>) -> Void) {
+    // fetch all chats that contain the provided user name
+    static func getChatsWithUser(userName: String, completion: @escaping (Result<[Chat], APIError>) -> Void) {
         let db = Firestore.firestore()
-        let chatCollection = db.collection("users")
-                                .document(userID)
-                                .collection("chats")
-        chatCollection.addSnapshotListener(includeMetadataChanges: false, listener: { querySnapshot, error in
-            if let documents = querySnapshot?.documents {
-                var chatList = [Chat]()
-                print("received from db:")
-                print(documents)
-                for document in documents {
-                    do {
-                        let chatRef = try document.data(as: ChatReference.self)
-                        print(chatRef)
-                        print(chatRef.chat_id.documentID)
-                        getChatById(chatID: chatRef.chat_id.documentID) { result in
-                            switch result {
-                            case .success(let chat):
-                                print(chat)
-                                chatList.append(chat)
-                                break
-                            case .failure(let error):
-                                print(error.localizedDescription)
-                                break
-                            }
-                        }
-                        let chat  = try document.data(as: Chat.self)
-                        chatList.append(chat)
-                    } catch {
-                        onChange(.failure(.unknownError))
+        db.collection("chats").whereFilter(.orFilter([
+            .whereField("source_user_name", isEqualTo: userName),
+            .whereField("target_user_name", isEqualTo: userName)
+        ])).getDocuments() { (snapshot, err) in
+                if let err = err {
+                    print(err)
+                    completion(.failure(.unknownError))
+                } else {
+                    let documents = snapshot!.documents
+                    let chats = documents.compactMap { document in
+                        try? document.data(as: Chat.self)
                     }
+                    completion(.success(chats))
                 }
-                onChange(.success(chatList))
             }
-        })
     }
     
     static func getChatById(chatID: String, _ completion: @escaping (Result<Chat, APIError>) -> Void) {
@@ -95,7 +78,6 @@ class ChatAPIService {
         let chatRef = db.collection("chats").document(chatID)
         chatRef.getDocument { snapshot, error in
             if let document = snapshot, document.exists {
-                print(document)
                 do {
                     let chat = try document.data(as: Chat.self)
                     completion(.success(chat))
