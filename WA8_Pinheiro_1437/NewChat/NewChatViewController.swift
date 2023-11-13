@@ -21,6 +21,8 @@ class NewChatViewController: UIViewController {
     
     var namesForTableView = [String]()
     
+    var selectedUser = User(name: "", email: "")
+    
     override func loadView() {
         view = newChatScreen
     }
@@ -39,6 +41,83 @@ class NewChatViewController: UIViewController {
         
         //MARK: setting up Search Bar delegate...
         newChatScreen.searchBar.delegate = self
+        
+        //MARK: removing the seperator line
+        newChatScreen.tableViewSearchResults.separatorStyle = .none
+        
+        //MARK: adding send behavior to send button
+        newChatScreen.sendButton.addTarget(self, action: #selector(onSendButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func onSendButtonTapped() {
+        // if no user is selected
+        if selectedUser.name == "" {
+            showErrorAlert("Must select a user to chat with", controller: self)
+        // if chat is empty
+        } else if !newChatScreen.textField.hasText {
+            showErrorAlert("Chat cannot be empty", controller: self)
+        } else {
+            if let text = newChatScreen.textField.text {
+                createNewChat(text: text)
+            } else {
+                showErrorAlert("Invalid message", controller: self)
+            }
+        }
+    }
+    
+    func createNewChat(text: String) {
+        let db = Firestore.firestore()
+        var chatExists = false
+        let currentDate = Date()
+        let otherUserName = self.selectedUser.name
+        let currentUserName = self.defaults.getKey(keyName: "currentUserName")!
+        let currentUserId = self.defaults.getKey(keyName: "currentUserID")!
+        
+        db.collection("chats").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    do {
+                        let chat = try document.data(as: Chat.self)
+                        // checking if there is already an existing chat history
+                        if (chat.source_user_name == currentUserName || chat.target_user_name == currentUserName)
+                            && (chat.source_user_name == otherUserName || chat.target_user_name == otherUserName) {
+                            chatExists = true
+                            let id = chat.id!
+                            db.collection("chats").document(id).collection("messages").addDocument(data: [
+                                "text": text,
+                                "timestamp": currentDate,
+                                "user_id": currentUserId,
+                            ])
+                            let chatViewController = ChatViewController()
+                            let chat = Chat(source_user_name: currentUserName, target_user_name: otherUserName)
+                            chatViewController.chatDisplay = ChatDisplay(otherUsername: otherUserName, chat: chat)
+                            self.navigationController?.pushViewController(chatViewController, animated: true)
+                            break
+                        }
+                    } catch {
+                        print(error)
+                    }
+                }
+                // if there is no chat history, create a new chat
+                if (!chatExists) {
+                    let document = db.collection("chats").addDocument(data: [
+                        "source_user_name": currentUserName,
+                        "target_user_name": otherUserName,
+                    ])
+                    document.collection("messages").addDocument(data: [
+                        "text": text,
+                        "timestamp": currentDate,
+                        "user_id": currentUserId,
+                    ])
+                    let chatViewController = ChatViewController()
+                    let chat = Chat(source_user_name: currentUserName, target_user_name: otherUserName)
+                    chatViewController.chatDisplay = ChatDisplay(otherUsername: otherUserName, chat: chat)
+                    self.navigationController?.pushViewController(chatViewController, animated: true)
+                }
+            }
+        }
     }
     
     func fetchUsers() {
@@ -83,10 +162,8 @@ extension NewChatViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let package = self.users.users[indexPath.row]
-        let chatController = ChatViewController()
-        chatController.receivedPackage = package
-        self.navigationController?.pushViewController(chatController, animated: true)
+        self.selectedUser = self.users.users[indexPath.row]
+        self.newChatScreen.sendChatLabel.text = "Send chat to \(selectedUser.name)"
     }
 }
 

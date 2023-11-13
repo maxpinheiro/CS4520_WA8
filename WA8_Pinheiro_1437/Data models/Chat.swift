@@ -25,9 +25,11 @@ struct Message: Codable {
 
 struct ChatDisplay {
     var otherUsername: String
+    var chat: Chat
     
-    init(otherUsername: String) {
+    init(otherUsername: String, chat: Chat) {
         self.otherUsername = otherUsername
+        self.chat = chat
     }
 }
 
