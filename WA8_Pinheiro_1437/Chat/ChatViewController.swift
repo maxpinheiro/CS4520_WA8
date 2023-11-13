@@ -10,7 +10,7 @@ import UIKit
 class ChatViewController: UIViewController {
     
     var chatScreen = ChatView()
-    var receivedPackage = User(name: "", email: "")
+    var chatDisplay: ChatDisplay?
     
     let notificationCenter = NotificationCenter.default
     
@@ -21,7 +21,7 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = receivedPackage.name
+        title = chatDisplay?.otherUsername
     }
     
 }
