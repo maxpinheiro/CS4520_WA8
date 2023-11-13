@@ -40,6 +40,7 @@
 		BE900C662AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C652AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift */; };
 		BE900C6A2AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C692AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift */; };
 		BE900C6C2AF980C300CCDEE0 /* NavbarButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */; };
+		BEB55EF52AFD57C70002F5B4 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB55EF42AFD57C70002F5B4 /* ChatTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		BE900C652AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupProgressIndicatorManager.swift; sourceTree = "<group>"; };
 		BE900C692AF97D1700CCDEE0 /* LoginProgressIndicatorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProgressIndicatorManager.swift; sourceTree = "<group>"; };
 		BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavbarButtonManager.swift; sourceTree = "<group>"; };
+		BEB55EF42AFD57C70002F5B4 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 				BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */,
 				BE900C5B2AF96C1300CCDEE0 /* ChatListView.swift */,
 				BE900C6B2AF980C300CCDEE0 /* NavbarButtonManager.swift */,
+				BEB55EF42AFD57C70002F5B4 /* ChatTableViewCell.swift */,
 			);
 			path = ChatList;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				0E3C88992AFD4B6100CE8EE7 /* NewChatView.swift in Sources */,
 				0EA0A6C62B0008F6000393BA /* Defaults.swift in Sources */,
 				BE900C492AF94DFF00CCDEE0 /* Chat.swift in Sources */,
+				BEB55EF52AFD57C70002F5B4 /* ChatTableViewCell.swift in Sources */,
 				BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */,
 				BE900C5C2AF96C1300CCDEE0 /* ChatListView.swift in Sources */,
 				0E3C88972AFD4B5400CE8EE7 /* NewChatViewController.swift in Sources */,

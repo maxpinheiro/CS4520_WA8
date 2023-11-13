@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     var handleAuth: AuthStateDidChangeListenerHandle?
     var currentAuthUser: FirebaseAuth.User?
     var currentUserID: String?
+    var currentUserName: String?
 
     var chats = [Chat]()
-    var accessToken: String?
     
     var chatListView = ChatListView()
         
@@ -32,6 +32,7 @@ class ViewController: UIViewController {
             if user == nil {
                 self.currentAuthUser = nil
                 self.defaults.setKey(keyName: "currentUserID")
+                self.resetChatList()
                 self.setupLeftBarButton(isLoggedin: false)
             } else {
                 self.currentAuthUser = user
@@ -54,16 +55,23 @@ class ViewController: UIViewController {
         tapRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapRecognizer)
         
+        chatListView.chatTableView.delegate = self
+        chatListView.chatTableView.dataSource = self
+        chatListView.chatTableView.separatorStyle = .none
+        
         addObservers()
         checkSavedUser()
     }
-    
+
     func checkSavedUser() {
         let savedUserID = defaults.getKey(keyName: "currentUserID")
+        let savedUserName = defaults.getKey(keyName: "currentUserName")
         // fetch chats if logged in, otherwise redirect to login
-        if let userID = savedUserID {
+        if let userID = savedUserID,
+           let userName = savedUserName {
             self.currentUserID = userID
-            return fetchChatsForUser(userID: userID)
+            self.currentUserName = userName
+            return fetchChatsForUser(userName: userName)
         }
         return openLoginPage()
     }
@@ -78,18 +86,38 @@ class ViewController: UIViewController {
         self.navigationController?.pushViewController(loginController, animated: true)
     }
     
-    func fetchChatsForUser(userID: String) {
-        
+    func resetChatList() {
+        self.chats = []
+        self.chatListView.chatTableView.reloadData()
+    }
+
+    func fetchChatsForUser(userName: String) {
+        print("fetching chats with user \(userName)")
+        ChatAPIService.getChatsWithUser(userName: userName) { result in
+            switch result {
+            case .success(let chats):
+                self.chats = chats
+                self.chatListView.chatTableView.reloadData()
+                break
+            case .failure(let error):
+                showErrorAlert(error.localizedDescription, controller: self)
+                break
+            }
+        }
     }
     
-    // given a user's email (firebase auth), get the corresponding
-    // user in the firstore and save the user_id to cookies
+    // given a user's email (firebase auth),
+    // get the corresponding user in the firstore and save the userIdd and userName to cookies,
+    // and fetch the chats for the user
     func fetchCurrentUser(_ userEmail: String) {
         AuthenticationAPIService.getUserByEmail(userEmail) { result in
             switch result {
             case .success(let user):
                 self.defaults.setKey(key: user.id!, keyName: "currentUserID")
-                self.fetchChatsForUser(userID: user.id!)
+                self.defaults.setKey(key: user.name, keyName: "currentUserName")
+                self.currentUserID = user.id!
+                self.currentUserName = user.name
+                self.fetchChatsForUser(userName: user.name)
                 break
             case .failure(let error):
                 showErrorAlert(error.localizedDescription, controller: self)
@@ -107,6 +135,12 @@ class ViewController: UIViewController {
         )
     }
     
+    func openChatDetailsPage(_ chat: Chat) {
+        if let chatId = chat.id {
+            print("opening chat \(chatId)")
+        }
+    }
+    
     @objc func onLogoutSuccessful(notification: Notification) {
         defaults.deleteKey(keyName: "currentUserID")
         openLoginPage()
@@ -117,3 +151,29 @@ class ViewController: UIViewController {
     }
 
 }
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return chats.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chats", for: indexPath) as! ChatTableViewCell
+        let chat = chats[indexPath.row]
+        if let currentUsername = currentUserName {
+            // display other user's name
+            cell.label.text = chat.source_user_name == currentUsername ? chat.target_user_name : chat.source_user_name
+        } else {
+            cell.label.text = chat.source_user_name
+        }
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let chat = chats[indexPath.row]
+        openChatDetailsPage(chat)
+    }
+    
+}
+

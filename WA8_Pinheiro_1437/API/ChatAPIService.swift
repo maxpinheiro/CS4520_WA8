@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 
 enum APIError: LocalizedError {
     case invalidUrl
+    case notFound
     case unknownError
     case networkError(message: String?)
     
@@ -19,6 +20,8 @@ enum APIError: LocalizedError {
         switch self {
         case .invalidUrl:
             return "Invalid URL"
+        case .notFound:
+            return "Not found"
         case .unknownError:
             return "Unknown error"
         case .networkError(let message):
@@ -39,7 +42,7 @@ class ChatAPIService {
                 var chatList = [Chat]()
                 for document in documents {
                     do {
-                        let chat  = try document.data(as: Chat.self)
+                        let chat = try document.data(as: Chat.self)
                         chatList.append(chat)
                     } catch {
                         onChange(.failure(.unknownError))
@@ -48,6 +51,43 @@ class ChatAPIService {
                 onChange(.success(chatList))
             }
         })
+    }
+    
+    // fetch all chats that contain the provided user name
+    static func getChatsWithUser(userName: String, completion: @escaping (Result<[Chat], APIError>) -> Void) {
+        let db = Firestore.firestore()
+        db.collection("chats").whereFilter(.orFilter([
+            .whereField("source_user_name", isEqualTo: userName),
+            .whereField("target_user_name", isEqualTo: userName)
+        ])).getDocuments() { (snapshot, err) in
+                if let err = err {
+                    print(err)
+                    completion(.failure(.unknownError))
+                } else {
+                    let documents = snapshot!.documents
+                    let chats = documents.compactMap { document in
+                        try? document.data(as: Chat.self)
+                    }
+                    completion(.success(chats))
+                }
+            }
+    }
+    
+    static func getChatById(chatID: String, _ completion: @escaping (Result<Chat, APIError>) -> Void) {
+        let db = Firestore.firestore()
+        let chatRef = db.collection("chats").document(chatID)
+        chatRef.getDocument { snapshot, error in
+            if let document = snapshot, document.exists {
+                do {
+                    let chat = try document.data(as: Chat.self)
+                    completion(.success(chat))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            } else {
+                completion(.failure(.notFound))
+            }
+        }
     }
     
     static func createChatForUser(userEmail: String, chat: Chat, _ completion: @escaping (Result<Bool, APIError>) -> Void) {

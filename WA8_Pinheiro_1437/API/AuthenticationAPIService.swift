@@ -108,7 +108,6 @@ class AuthenticationAPIService {
                         } else {
                             completion(.failure(.unknownError))
                         }
-
                     } catch {
                         completion(.failure(.unknownError))
                     }
