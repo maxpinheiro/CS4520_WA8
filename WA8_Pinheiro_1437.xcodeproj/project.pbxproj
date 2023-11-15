@@ -13,6 +13,7 @@
 		0EA0A6C62B0008F6000393BA /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA0A6C52B0008F6000393BA /* Defaults.swift */; };
 		0EA0A6C92B003E95000393BA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA0A6C82B003E95000393BA /* ChatViewController.swift */; };
 		0EA0A6CB2B003EA3000393BA /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA0A6CA2B003EA3000393BA /* ChatView.swift */; };
+		BE27FA692B029A1C0062CE3A /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE27FA682B029A1C0062CE3A /* MessageTableViewCell.swift */; };
 		BE900C282AF9450A00CCDEE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */; };
 		BE900C2A2AF9450A00CCDEE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */; };
 		BE900C2C2AF9450A00CCDEE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE900C2B2AF9450A00CCDEE0 /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 		0EA0A6C52B0008F6000393BA /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		0EA0A6C82B003E95000393BA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		0EA0A6CA2B003EA3000393BA /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		BE27FA682B029A1C0062CE3A /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		BE900C242AF9450A00CCDEE0 /* WA8_Pinheiro_1437.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WA8_Pinheiro_1437.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE900C272AF9450A00CCDEE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE900C292AF9450A00CCDEE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				0EA0A6C82B003E95000393BA /* ChatViewController.swift */,
 				0EA0A6CA2B003EA3000393BA /* ChatView.swift */,
+				BE27FA682B029A1C0062CE3A /* MessageTableViewCell.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				BE900C642AF975E500CCDEE0 /* ProgressSpinnerDelegate.swift in Sources */,
 				BE900C542AF9695D00CCDEE0 /* NotificationNames.swift in Sources */,
 				0EA0A6C92B003E95000393BA /* ChatViewController.swift in Sources */,
+				BE27FA692B029A1C0062CE3A /* MessageTableViewCell.swift in Sources */,
 				BE900C612AF975B600CCDEE0 /* ProgressSpinnerViewController.swift in Sources */,
 				BE900C662AF9768200CCDEE0 /* SignupProgressIndicatorManager.swift in Sources */,
 				BE900C522AF9688600CCDEE0 /* SignupView.swift in Sources */,

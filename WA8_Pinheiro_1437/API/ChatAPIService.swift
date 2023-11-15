@@ -105,5 +105,28 @@ class ChatAPIService {
             completion(.failure(.unknownError))
         }
     }
+    
+    // listens to a chat's messages for changes and invokes the callback each time the data changes
+    static func getMesagesForChat(chatID: String, _ onChange: @escaping (Result<[Message], APIError>) -> Void) {
+        let db = Firestore.firestore()
+        let chatCollection = db.collection("chats")
+                                .document(chatID)
+                                .collection("messages")
+                                .order(by: "timestamp")
+        chatCollection.addSnapshotListener(includeMetadataChanges: false, listener: { querySnapshot, error in
+            if let documents = querySnapshot?.documents {
+                var messageList = [Message]()
+                for document in documents {
+                    do {
+                        let message = try document.data(as: Message.self)
+                        messageList.append(message)
+                    } catch {
+                        onChange(.failure(.unknownError))
+                    }
+                }
+                onChange(.success(messageList))
+            }
+        })
+    }
 }
 

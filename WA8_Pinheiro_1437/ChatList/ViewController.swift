@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var currentUserID: String?
     var currentUserName: String?
 
-    var chats = [Chat]()
+    var chats = [ChatDisplay]()
     
     var chatListView = ChatListView()
         
@@ -92,11 +92,10 @@ class ViewController: UIViewController {
     }
 
     func fetchChatsForUser(userName: String) {
-        print("fetching chats with user \(userName)")
         ChatAPIService.getChatsWithUser(userName: userName) { result in
             switch result {
             case .success(let chats):
-                self.chats = chats
+                self.chats = organizeChatsForUser(chats: chats, currentUserName: userName)
                 self.chatListView.chatTableView.reloadData()
                 break
             case .failure(let error):
@@ -135,10 +134,10 @@ class ViewController: UIViewController {
         )
     }
     
-    func openChatDetailsPage(_ chat: Chat) {
-        if let chatId = chat.id {
-            print("opening chat \(chatId)")
-        }
+    func openChatDetailsPage(_ chat: ChatDisplay) {
+        let chatController = ChatViewController()
+        chatController.chatDisplay = chat
+        self.navigationController?.pushViewController(chatController, animated: true)
     }
     
     @objc func onLogoutSuccessful(notification: Notification) {
@@ -160,12 +159,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chats", for: indexPath) as! ChatTableViewCell
         let chat = chats[indexPath.row]
-        if let currentUsername = currentUserName {
-            // display other user's name
-            cell.label.text = chat.source_user_name == currentUsername ? chat.target_user_name : chat.source_user_name
-        } else {
-            cell.label.text = chat.source_user_name
-        }
+        cell.label.text = chat.otherUsername
         cell.selectionStyle = .none
         return cell
     }
