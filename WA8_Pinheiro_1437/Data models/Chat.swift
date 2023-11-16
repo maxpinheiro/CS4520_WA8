@@ -13,9 +13,9 @@ struct Message: Codable {
     @DocumentID var id: String?
     var user_id: String
     var text: String
-    var timestamp: String
+    var timestamp: Date
     
-    init(id: String? = nil, user_id: String, text: String, timestamp: String) {
+    init(id: String? = nil, user_id: String, text: String, timestamp: Date) {
         self.id = id
         self.user_id = user_id
         self.text = text
@@ -23,6 +23,7 @@ struct Message: Codable {
     }
 }
 
+// the chat being displayed for the current user
 struct ChatDisplay {
     var otherUsername: String
     var chat: Chat
