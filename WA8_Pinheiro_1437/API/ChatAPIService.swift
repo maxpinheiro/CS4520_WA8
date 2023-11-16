@@ -73,6 +73,30 @@ class ChatAPIService {
             }
     }
     
+    // listen for all chats that contain the provided user name
+    static func listenForChatsWithUser(userName: String, onChange: @escaping (Result<[Chat], APIError>) -> Void) {
+        let db = Firestore.firestore()
+        let chatCollection = db.collection("chats")
+                               .whereFilter(.orFilter([
+                                  .whereField("source_user_name", isEqualTo: userName),
+                                  .whereField("target_user_name", isEqualTo: userName)
+                                ]))
+        chatCollection.addSnapshotListener(includeMetadataChanges: false, listener: { querySnapshot, error in
+            if let documents = querySnapshot?.documents {
+                var chatList = [Chat]()
+                for document in documents {
+                    do {
+                        let chat = try document.data(as: Chat.self)
+                        chatList.append(chat)
+                    } catch {
+                        onChange(.failure(.unknownError))
+                    }
+                }
+                onChange(.success(chatList))
+            }
+        })
+    }
+    
     static func getChatById(chatID: String, _ completion: @escaping (Result<Chat, APIError>) -> Void) {
         let db = Firestore.firestore()
         let chatRef = db.collection("chats").document(chatID)
