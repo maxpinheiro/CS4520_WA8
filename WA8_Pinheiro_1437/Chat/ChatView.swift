@@ -80,10 +80,10 @@ class ChatView: UIView {
     func initConstraints() {
         NSLayoutConstraint.activate([
             // chat table view
-            messageTableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32),
+            messageTableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
             messageTableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             messageTableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            messageTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            messageTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -32),
             
             //bottom chat view...
             bottomChatView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor,constant: -8),
