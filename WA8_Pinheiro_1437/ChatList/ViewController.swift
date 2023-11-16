@@ -92,7 +92,7 @@ class ViewController: UIViewController {
     }
 
     func fetchChatsForUser(userName: String) {
-        ChatAPIService.getChatsWithUser(userName: userName) { result in
+        ChatAPIService.listenForChatsWithUser(userName: userName) { result in
             switch result {
             case .success(let chats):
                 self.chats = organizeChatsForUser(chats: chats, currentUserName: userName)
