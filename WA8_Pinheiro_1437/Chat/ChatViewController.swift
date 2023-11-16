@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseFirestore
 
 class ChatViewController: UIViewController {
     let defaults = Defaults()
@@ -31,12 +33,50 @@ class ChatViewController: UIViewController {
         chatScreen.messageTableView.dataSource = self
         chatScreen.messageTableView.separatorStyle = .none
         
+        //MARK: adding send behavior to send button
+        chatScreen.sendButton.addTarget(self, action: #selector(onSendButtonTapped), for: .touchUpInside)
+        
         if let userID = defaults.getKey(keyName: "currentUserID") {
             self.currentUserID = userID
         }
         if let uwChat = chatDisplay,
            let chatID = uwChat.chat.id {
             getMessagesForChat(chatID: chatID)
+        }
+        
+        // hide keyboard when tapped outside
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboardOnTap))
+        tapRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapRecognizer)
+    }
+    
+    @objc func onSendButtonTapped() {
+        // if chat is empty
+        if !chatScreen.textField.hasText {
+            showErrorAlert("Chat cannot be empty", controller: self)
+        } else {
+            if let text = chatScreen.textField.text {
+                createNewChat(text: text)
+            } else {
+                showErrorAlert("Invalid message", controller: self)
+            }
+        }
+    }
+    
+    func createNewChat(text: String) {
+        let db = Firestore.firestore()
+        let currentDate = Date()
+        let currentUserId = self.defaults.getKey(keyName: "currentUserID")!
+        
+        if let chatID = chatDisplay?.chat.id {
+            db.collection("chats").document(chatID).collection("messages").addDocument(data:
+                [
+                    "text": text,
+                    "timestamp": currentDate,
+                    "user_id": currentUserId,
+                ]
+            )
+            chatScreen.textField.text = ""
         }
     }
     
@@ -64,6 +104,10 @@ class ChatViewController: UIViewController {
             let indexPath = IndexPath(row: numRows - 1, section: numSections - 1)
             chatScreen.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
+    }
+    
+    @objc func hideKeyboardOnTap() {
+        view.endEditing(true)
     }
     
 }

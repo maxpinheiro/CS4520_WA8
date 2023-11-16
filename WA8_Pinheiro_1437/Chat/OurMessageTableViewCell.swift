@@ -16,7 +16,6 @@ class OurMessageTableViewCell: MessageTableViewCell {
         messageWrapper.backgroundColor = .systemBlue
         messageWrapper.layer.borderColor = UIColor.systemBlue.cgColor
         messageLabel.textColor = .white
-        messageLabel.textAlignment = .right
     }
 
     override func applySpecificConstraints() {

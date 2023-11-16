@@ -23,7 +23,7 @@ class NewChatView: UIView {
         
         setUpSearchBar()
         setUpSearchResults()
-        setUpBottomAddView()
+        setUpBottomChatView()
         setUpSendChatLabel()
         setUpTextField()
         setUpSendButton()
@@ -46,7 +46,7 @@ class NewChatView: UIView {
         self.addSubview(tableViewSearchResults)
     }
     
-    func setUpBottomAddView() {
+    func setUpBottomChatView() {
         bottomChatView = UIView()
         bottomChatView.backgroundColor = .white
         bottomChatView.layer.cornerRadius = 6

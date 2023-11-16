@@ -85,7 +85,8 @@ class MessageTableViewCell: UITableViewCell {
             messageWrapper.widthAnchor.constraint(equalTo: messageLabel.widthAnchor, constant: 28),
             messageWrapper.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor, constant: -60),
             
-            wrapperCellView.heightAnchor.constraint(equalToConstant: 60)
+            wrapperCellView.heightAnchor.constraint(equalTo: messageWrapper.heightAnchor, constant: 20),
+            wrapperCellView.heightAnchor.constraint(greaterThanOrEqualToConstant: 60)
         ])
         applySpecificConstraints()
     }
