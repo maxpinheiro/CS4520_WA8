@@ -10,8 +10,7 @@ import UIKit
 class MessageTableViewCell: UITableViewCell {
     
     var wrapperCellView: UIView! // holds the timestamp and message
-    var messageWrapper: UIStackView! // horizontal container for aligning the message left/right
-    var messageBubble: UIView! // the actual message bubble
+    var messageWrapper: UIView!
     var timeLabel: UILabel!
     var messageLabel: UILabel!
     
@@ -26,8 +25,8 @@ class MessageTableViewCell: UITableViewCell {
         setupWrapperCellView()
         setupTimeLabel()
         setupMessageWrapper()
-        setupMessageBubble()
         setupMessageLabel()
+        applySpecificStyles()
     }
     
     func setupWrapperCellView() {
@@ -46,25 +45,15 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     func setupMessageWrapper() {
-        messageWrapper = UIStackView()
-        messageWrapper.axis = .horizontal
-        messageWrapper.alignment = .leading
+        messageWrapper = UIView()
+        messageWrapper.layer.cornerRadius = 12
+        messageWrapper.layer.borderWidth = 1
+        messageWrapper.layer.shadowColor = UIColor.gray.cgColor
+        messageWrapper.layer.shadowOffset = .zero
+        messageWrapper.layer.shadowRadius = 1.0
+        messageWrapper.layer.shadowOpacity = 0.3
         messageWrapper.translatesAutoresizingMaskIntoConstraints = false
         wrapperCellView.addSubview(messageWrapper)
-    }
-
-    func setupMessageBubble() {
-        messageBubble = UIView()
-        messageBubble.backgroundColor = .white
-        messageBubble.layer.cornerRadius = 8
-        messageBubble.layer.borderWidth = 1
-        messageBubble.layer.borderColor = UIColor.systemGray.cgColor
-        messageBubble.layer.shadowColor = UIColor.gray.cgColor
-        messageBubble.layer.shadowOffset = .zero
-        messageBubble.layer.shadowRadius = 1.0
-        messageBubble.layer.shadowOpacity = 0.3
-        messageBubble.translatesAutoresizingMaskIntoConstraints = false
-        messageWrapper.addSubview(messageBubble)
     }
     
     func setupMessageLabel() {
@@ -76,7 +65,7 @@ class MessageTableViewCell: UITableViewCell {
         messageWrapper.addSubview(messageLabel)
     }
     
-    func initConstraints(){
+    func initConstraints() {
         NSLayoutConstraint.activate([
             wrapperCellView.topAnchor.constraint(equalTo: self.topAnchor,constant: 8),
             wrapperCellView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
@@ -87,22 +76,25 @@ class MessageTableViewCell: UITableViewCell {
             timeLabel.centerXAnchor.constraint(equalTo: wrapperCellView.centerXAnchor),
             
             messageWrapper.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 8),
-            messageWrapper.leadingAnchor.constraint(equalTo: wrapperCellView.leadingAnchor),
-            messageWrapper.trailingAnchor.constraint(equalTo: wrapperCellView.trailingAnchor),
             
-            messageBubble.topAnchor.constraint(equalTo: messageWrapper.topAnchor),
-            messageBubble.bottomAnchor.constraint(equalTo: messageWrapper.bottomAnchor),
-            messageBubble.widthAnchor.constraint(equalTo: messageWrapper.widthAnchor, constant: -60),
+            messageLabel.topAnchor.constraint(equalTo: messageWrapper.topAnchor, constant: 12),
+            messageLabel.bottomAnchor.constraint(equalTo: messageWrapper.bottomAnchor, constant: -12),
+            messageLabel.leadingAnchor.constraint(equalTo: messageWrapper.leadingAnchor, constant: 14),
+            messageLabel.trailingAnchor.constraint(equalTo: messageWrapper.trailingAnchor, constant: -14),
             
-            messageLabel.topAnchor.constraint(equalTo: messageBubble.topAnchor, constant: 12),
-            messageLabel.bottomAnchor.constraint(equalTo: messageBubble.bottomAnchor, constant: -12),
-            messageLabel.leadingAnchor.constraint(equalTo: messageBubble.leadingAnchor, constant: 12),
-            messageLabel.trailingAnchor.constraint(equalTo: messageBubble.trailingAnchor, constant: -12),
+            messageWrapper.widthAnchor.constraint(equalTo: messageLabel.widthAnchor, constant: 28),
+            messageWrapper.widthAnchor.constraint(lessThanOrEqualTo: wrapperCellView.widthAnchor, constant: -60),
             
-            wrapperCellView.heightAnchor.constraint(equalToConstant: 80)
+            wrapperCellView.heightAnchor.constraint(equalToConstant: 60)
         ])
-        
+        applySpecificConstraints()
     }
+
+    // apply specific styles to each variant
+    func applySpecificStyles() {}
+
+    // apply left/right alignment to message wrapper
+    func applySpecificConstraints() {}
 
     override func awakeFromNib() {
         super.awakeFromNib()

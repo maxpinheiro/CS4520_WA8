@@ -41,14 +41,11 @@ class ChatViewController: UIViewController {
     }
     
     func getMessagesForChat(chatID: String) {
-        print("getting messages for chat \(chatID)")
         ChatAPIService.getMesagesForChat(chatID: chatID) { result in
             switch result {
             case .success(let messages):
-                print(messages)
                 self.messages = messages
                 self.chatScreen.messageTableView.reloadData()
-                print(messages)
                 if !messages.isEmpty {
                     self.scrollToBottom()
                 }
@@ -61,14 +58,11 @@ class ChatViewController: UIViewController {
     }
     
     func scrollToBottom() {
-        DispatchQueue.main.async {
-            if !self.messages.isEmpty {
-                self.chatScreen.messageTableView.scrollToRow(
-                    at: IndexPath(row: self.messages.count - 1, section: 0),
-                    at: .bottom,
-                    animated: true
-                )
-            }
+        let numSections = chatScreen.messageTableView.numberOfSections
+        let numRows = chatScreen.messageTableView.numberOfRows(inSection: numSections - 1)
+        if numRows > 0 {
+            let indexPath = IndexPath(row: numRows - 1, section: numSections - 1)
+            chatScreen.messageTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
     
@@ -80,26 +74,20 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "messages", for: indexPath) as! MessageTableViewCell
         let message = messages[indexPath.row]
+
+        // dequeue appropriate cell type based on message type
+        let cell: MessageTableViewCell
+        if currentUserID == message.user_id {
+            cell = tableView.dequeueReusableCell(withIdentifier: "our-message", for: indexPath) as! OurMessageTableViewCell
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "their-message", for: indexPath) as! TheirMessageTableViewCell
+        }
+
         cell.messageLabel.text = message.text
         cell.timeLabel.text = formatDate(date: message.timestamp, currDate: Date.now)
         cell.selectionStyle = .none
-        
-        // style based on whether message belongs to us or other user
-        if currentUserID == message.user_id {
-            print("our message")
-            cell.messageWrapper.alignment = .trailing
-            cell.messageBubble.backgroundColor = .systemBlue
-            cell.messageBubble.layer.borderColor = UIColor.systemBlue.cgColor
-            cell.messageLabel.textColor = .white
-        } else {
-            print("their message")
-            cell.messageWrapper.alignment = .leading
-            cell.messageBubble.backgroundColor = .systemGray5
-            cell.messageBubble.layer.borderColor = UIColor.systemGray3.cgColor
-            cell.messageLabel.textColor = .black
-        }
+
         return cell
     }
     

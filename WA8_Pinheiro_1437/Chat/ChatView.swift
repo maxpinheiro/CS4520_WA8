@@ -30,7 +30,8 @@ class ChatView: UIView {
     
     func setupMessageTableView() {
         messageTableView = UITableView()
-        messageTableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "messages")
+        messageTableView.register(OurMessageTableViewCell.self, forCellReuseIdentifier: "our-message")
+        messageTableView.register(TheirMessageTableViewCell.self, forCellReuseIdentifier: "their-message")
         addComponent(messageTableView)
     }
     
@@ -40,9 +41,8 @@ class ChatView: UIView {
             messageTableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 32),
             messageTableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             messageTableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            messageTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            messageTableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor, constant: -8),
         ])
-
     }
     
     required init?(coder: NSCoder) {
